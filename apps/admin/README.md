@@ -61,7 +61,7 @@ You can use Gitpod for online development:
 or clone it for local development:
 
 ```bash
-git clone https://github.com/perfect-panel/ppanel-web.git
+git clone https://github.com/zzzx8888/ppanel-web.git
 cd ppanel-web
 
 # Install dependencies
