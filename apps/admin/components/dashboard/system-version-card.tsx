@@ -32,16 +32,13 @@ export default function SystemVersionCard() {
     queryKey: ['getVersionInfo'],
     queryFn: async () => {
       try {
-        const headers: HeadersInit = {
-          Accept: 'application/vnd.github.v3+json',
-        };
-
-        // 如果你有 GitHub Token，可以在这里添加，或者通过环境变量 NEXT_PUBLIC_GITHUB_TOKEN 传入
-        // headers['Authorization'] = `token ${process.env.NEXT_PUBLIC_GITHUB_TOKEN}`;
-
         const [webResponse, serverResponse, systemResponse] = await Promise.all([
-          fetch('https://api.github.com/repos/zzzx8888/ppanel-web/releases/latest', { headers }),
-          fetch('https://api.github.com/repos/zzzx8888/ppanel-server/releases/latest', { headers }),
+          fetch(
+            'https://data.jsdelivr.com/v1/packages/gh/zzzx8888/ppanel-web/resolved?specifier=latest',
+          ),
+          fetch(
+            'https://data.jsdelivr.com/v1/packages/gh/zzzx8888/ppanel-server/resolved?specifier=latest',
+          ),
           getVersion(),
         ]);
 
@@ -75,14 +72,14 @@ export default function SystemVersionCard() {
         const latestReleases = {
           web: webData
             ? {
-                version: webData.tag_name,
-                url: webData.html_url,
+                version: webData.version,
+                url: `https://github.com/zzzx8888/ppanel-web/releases/tag/v${webData.version}`,
               }
             : null,
           server: serverData
             ? {
-                version: serverData.tag_name,
-                url: serverData.html_url,
+                version: serverData.version,
+                url: `https://github.com/zzzx8888/ppanel-server/releases/tag/v${serverData.version}`,
               }
             : null,
         };
