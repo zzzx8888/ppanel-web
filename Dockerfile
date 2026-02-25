@@ -23,7 +23,7 @@ FROM deps AS builder
 WORKDIR /app
 COPY . .
 # 执行构建
-RUN bun run build --filter=admin-web
+RUN bun run build --filter=ppanel-admin-web
 
 # Stage 3: Production server
 FROM oven/bun:latest AS runner
