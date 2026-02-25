@@ -21,12 +21,22 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push Web Image
+      - name: Build and push Admin Web Image
         uses: docker/build-push-action@v5
         with:
           context: .
           file: ./Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/ppanel-web:latest
+          cache-from: type=gha
+          cache-to: type=inline
+
+      - name: Build and push User Web Image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./apps/user/Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/ppanel-user-web:latest
           cache-from: type=gha
           cache-to: type=inline
